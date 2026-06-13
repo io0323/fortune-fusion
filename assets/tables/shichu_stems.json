@@ -1,0 +1,14 @@
+{
+  "stems": [
+    { "index": 0, "name": "甲", "element": "木", "polarity": "陽", "roman": "Kinoe" },
+    { "index": 1, "name": "乙", "element": "木", "polarity": "陰", "roman": "Kinoto" },
+    { "index": 2, "name": "丙", "element": "火", "polarity": "陽", "roman": "Hinoe" },
+    { "index": 3, "name": "丁", "element": "火", "polarity": "陰", "roman": "Hinoto" },
+    { "index": 4, "name": "戊", "element": "土", "polarity": "陽", "roman": "Tsuchinoe" },
+    { "index": 5, "name": "己", "element": "土", "polarity": "陰", "roman": "Tsuchinoto" },
+    { "index": 6, "name": "庚", "element": "金", "polarity": "陽", "roman": "Kanoe" },
+    { "index": 7, "name": "辛", "element": "金", "polarity": "陰", "roman": "Kanoto" },
+    { "index": 8, "name": "壬", "element": "水", "polarity": "陽", "roman": "Mizunoe" },
+    { "index": 9, "name": "癸", "element": "水", "polarity": "陰", "roman": "Mizunoto" }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "signs": [
+    { "index": 0, "name": "牡羊座", "english": "Aries", "element": "火", "quality": "活動", "start_month": 3, "start_day": 21, "end_month": 4, "end_day": 19, "ruling_planet": "火星" },
+    { "index": 1, "name": "牡牛座", "english": "Taurus", "element": "土", "quality": "固定", "start_month": 4, "start_day": 20, "end_month": 5, "end_day": 20, "ruling_planet": "金星" },
+    { "index": 2, "name": "双子座", "english": "Gemini", "element": "風", "quality": "柔軟", "start_month": 5, "start_day": 21, "end_month": 6, "end_day": 21, "ruling_planet": "水星" },
+    { "index": 3, "name": "蟹座", "english": "Cancer", "element": "水", "quality": "活動", "start_month": 6, "start_day": 22, "end_month": 7, "end_day": 22, "ruling_planet": "月" },
+    { "index": 4, "name": "獅子座", "english": "Leo", "element": "火", "quality": "固定", "start_month": 7, "start_day": 23, "end_month": 8, "end_day": 22, "ruling_planet": "太陽" },
+    { "index": 5, "name": "乙女座", "english": "Virgo", "element": "土", "quality": "柔軟", "start_month": 8, "start_day": 23, "end_month": 9, "end_day": 22, "ruling_planet": "水星" },
+    { "index": 6, "name": "天秤座", "english": "Libra", "element": "風", "quality": "活動", "start_month": 9, "start_day": 23, "end_month": 10, "end_day": 23, "ruling_planet": "金星" },
+    { "index": 7, "name": "蠍座", "english": "Scorpio", "element": "水", "quality": "固定", "start_month": 10, "start_day": 24, "end_month": 11, "end_day": 22, "ruling_planet": "冥王星" },
+    { "index": 8, "name": "射手座", "english": "Sagittarius", "element": "火", "quality": "柔軟", "start_month": 11, "start_day": 23, "end_month": 12, "end_day": 21, "ruling_planet": "木星" },
+    { "index": 9, "name": "山羊座", "english": "Capricorn", "element": "土", "quality": "活動", "start_month": 12, "start_day": 22, "end_month": 1, "end_day": 19, "ruling_planet": "土星" },
+    { "index": 10, "name": "水瓶座", "english": "Aquarius", "element": "風", "quality": "固定", "start_month": 1, "start_day": 20, "end_month": 2, "end_day": 18, "ruling_planet": "天王星" },
+    { "index": 11, "name": "魚座", "english": "Pisces", "element": "水", "quality": "柔軟", "start_month": 2, "start_day": 19, "end_month": 3, "end_day": 20, "ruling_planet": "海王星" }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "stars": [
+    { "number": 1, "name": "一白水星", "element": "水", "color": "白" },
+    { "number": 2, "name": "二黒土星", "element": "土", "color": "黒" },
+    { "number": 3, "name": "三碧木星", "element": "木", "color": "碧" },
+    { "number": 4, "name": "四緑木星", "element": "木", "color": "緑" },
+    { "number": 5, "name": "五黄土星", "element": "土", "color": "黄" },
+    { "number": 6, "name": "六白金星", "element": "金", "color": "白" },
+    { "number": 7, "name": "七赤金星", "element": "金", "color": "赤" },
+    { "number": 8, "name": "八白土星", "element": "土", "color": "白" },
+    { "number": 9, "name": "九紫火星", "element": "火", "color": "紫" }
+  ],
+  "year_base": 1899,
+  "directions": {
+    "1": "北",
+    "2": "南西",
+    "3": "東",
+    "4": "東南",
+    "5": "中央",
+    "6": "北西",
+    "7": "西",
+    "8": "北東",
+    "9": "南"
+  }
+}

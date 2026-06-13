@@ -1,0 +1,16 @@
+{
+  "branches": [
+    { "index": 0, "name": "子", "element": "水", "polarity": "陽", "roman": "Ne", "hour_start": 23, "hour_end": 1 },
+    { "index": 1, "name": "丑", "element": "土", "polarity": "陰", "roman": "Ushi", "hour_start": 1, "hour_end": 3 },
+    { "index": 2, "name": "寅", "element": "木", "polarity": "陽", "roman": "Tora", "hour_start": 3, "hour_end": 5 },
+    { "index": 3, "name": "卯", "element": "木", "polarity": "陰", "roman": "U", "hour_start": 5, "hour_end": 7 },
+    { "index": 4, "name": "辰", "element": "土", "polarity": "陽", "roman": "Tatsu", "hour_start": 7, "hour_end": 9 },
+    { "index": 5, "name": "巳", "element": "火", "polarity": "陰", "roman": "Mi", "hour_start": 9, "hour_end": 11 },
+    { "index": 6, "name": "午", "element": "火", "polarity": "陽", "roman": "Uma", "hour_start": 11, "hour_end": 13 },
+    { "index": 7, "name": "未", "element": "土", "polarity": "陰", "roman": "Hitsuji", "hour_start": 13, "hour_end": 15 },
+    { "index": 8, "name": "申", "element": "金", "polarity": "陽", "roman": "Saru", "hour_start": 15, "hour_end": 17 },
+    { "index": 9, "name": "酉", "element": "金", "polarity": "陰", "roman": "Tori", "hour_start": 17, "hour_end": 19 },
+    { "index": 10, "name": "戌", "element": "土", "polarity": "陽", "roman": "Inu", "hour_start": 19, "hour_end": 21 },
+    { "index": 11, "name": "亥", "element": "水", "polarity": "陰", "roman": "I", "hour_start": 21, "hour_end": 23 }
+  ]
+}
