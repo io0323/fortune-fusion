@@ -1,7 +1,66 @@
+typedef Stem = String;
+typedef Branch = String;
+
+enum TsuhenStar {
+  hiken('比肩'),
+  kokuzai('劫財'),
+  shokushin('食神'),
+  shokan('傷官'),
+  henzai('偏財'),
+  seizai('正財'),
+  henkan('偏官'),
+  seikan('正官'),
+  henin('偏印'),
+  insho('印綬');
+
+  const TsuhenStar(this.label);
+  final String label;
+}
+
+enum JuniUn {
+  choisei('長生'),
+  mokuyo('沐浴'),
+  kanta('冠帯'),
+  kenroku('建禄'),
+  teiou('帝旺'),
+  sui('衰'),
+  byo('病'),
+  shi('死'),
+  bo('墓'),
+  zetsu('絶'),
+  tai('胎'),
+  yo('養');
+
+  const JuniUn(this.label);
+  final String label;
+}
+
+class ZokanEntry {
+  const ZokanEntry({
+    required this.stem,
+    required this.type,
+    required this.tsuhen,
+  });
+
+  final Stem stem;
+  final String type; // '本気', '中気', '余気'
+  final TsuhenStar tsuhen;
+}
+
 class Pillar {
-  const Pillar({required this.stem, required this.branch});
-  final String stem;
-  final String branch;
+  const Pillar({
+    required this.stem,
+    required this.branch,
+    this.tsuhen,
+    required this.juniun,
+    required this.zokan,
+  });
+
+  final Stem stem;
+  final Branch branch;
+  final TsuhenStar? tsuhen; // null for 日柱(日主)
+  final JuniUn juniun;
+  final List<ZokanEntry> zokan;
 
   @override
   bool operator ==(Object other) =>
@@ -13,28 +72,28 @@ class Pillar {
 
 class ShichuMeishiki {
   const ShichuMeishiki({
-    required this.yearPillar,
-    required this.monthPillar,
-    required this.dayPillar,
-    required this.hourPillar,
+    required this.nenchu,
+    required this.gecchu,
+    required this.nicchu,
+    this.jichu,
   });
 
-  final Pillar yearPillar;
-  final Pillar monthPillar;
-  final Pillar dayPillar;
-  final Pillar? hourPillar;
+  final Pillar nenchu; // 年柱
+  final Pillar gecchu; // 月柱
+  final Pillar nicchu; // 日柱
+  final Pillar? jichu; // 時柱（null=出生時刻不明）
 
   ShichuMeishiki copyWith({
-    Pillar? yearPillar,
-    Pillar? monthPillar,
-    Pillar? dayPillar,
-    Pillar? hourPillar,
+    Pillar? nenchu,
+    Pillar? gecchu,
+    Pillar? nicchu,
+    Pillar? jichu,
   }) {
     return ShichuMeishiki(
-      yearPillar: yearPillar ?? this.yearPillar,
-      monthPillar: monthPillar ?? this.monthPillar,
-      dayPillar: dayPillar ?? this.dayPillar,
-      hourPillar: hourPillar ?? this.hourPillar,
+      nenchu: nenchu ?? this.nenchu,
+      gecchu: gecchu ?? this.gecchu,
+      nicchu: nicchu ?? this.nicchu,
+      jichu: jichu ?? this.jichu,
     );
   }
 }
