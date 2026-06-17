@@ -74,6 +74,21 @@ class KyuseiEngine {
     return 1;
   }
 
+  // 日盤中宮: 1900/1/1=1 を基準に毎日1ずつ減少 (9→8→...→1→9→...)
+  // TODO: 正確な日盤は節気境界での補正が必要
+  int calcNichibanCenter(DateTime date) {
+    final ref = DateTime(1900, 1, 1);
+    final days = DateTime(date.year, date.month, date.day).difference(ref).inDays;
+    return ((-(days % 9) + 9) % 9) + 1;
+  }
+
+  // 日盤における本命星の位置 → 方角
+  String calcLuckyDirection(int honmeiNumber, int nichibanCenter) {
+    final pos = ((honmeiNumber - nichibanCenter + 13) % 9) + 1;
+    const dirs = {1: '北', 2: '南西', 3: '東', 4: '東南', 6: '北西', 7: '西', 8: '北東', 9: '南'};
+    return dirs[pos] ?? '全方位'; // pos==5 は中宮
+  }
+
   // グループ判定: 0=A(1,4,7), 1=B(2,5,8), 2=C(3,6,9)
   int _getGroup(int honmei) {
     if (honmei == 1 || honmei == 4 || honmei == 7) return 0;
