@@ -90,6 +90,10 @@ class ShichuEngine {
     );
   }
 
+  // 通変星 (公開メソッド)
+  TsuhenStar calcTsuhenStar(int dayStemIdx, int targetStemIdx) =>
+      _calcTsuhen(dayStemIdx, targetStemIdx);
+
   // 時支インデックス: 23→0(子), 0→0(子), 1→1(丑), 3→2(寅), ...
   int _hourBranchIndex(int hour) => (hour + 1) ~/ 2 % 12;
 
