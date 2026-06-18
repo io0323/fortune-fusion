@@ -32,6 +32,7 @@ class FortuneCache extends Table {
 @DriftDatabase(tables: [Profiles, FortuneCache])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
+  AppDatabase.forTesting(QueryExecutor e) : super(e);
 
   @override
   int get schemaVersion => 1;
