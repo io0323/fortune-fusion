@@ -15,6 +15,7 @@ import '../../domain/entities/daily_fortune.dart';
 import '../../domain/entities/fortune_result.dart';
 import '../../domain/entities/integrated_reading.dart';
 import '../../domain/repositories/fortune_repository.dart';
+import '../../domain/services/fortune_scorer.dart';
 
 class FortuneRepositoryImpl implements FortuneRepository {
   const FortuneRepositoryImpl({
@@ -40,15 +41,6 @@ class FortuneRepositoryImpl implements FortuneRepository {
     'love': '今日は恋愛面で慎重に。感情的な判断は避けましょう。',
     'health': '体調管理に気を配り、無理をしないよう心がけましょう。',
   };
-
-  // ★閾値: 0-20→1, 21-40→2, 41-60→3, 61-80→4, 81-100→5
-  static int _toStars(int score) {
-    if (score <= 20) return 1;
-    if (score <= 40) return 2;
-    if (score <= 60) return 3;
-    if (score <= 80) return 4;
-    return 5;
-  }
 
   // ---------- パブリックインターフェース ----------
 
@@ -202,22 +194,22 @@ class FortuneRepositoryImpl implements FortuneRepository {
     final todayElem = todayStemIdx ~/ 2;
     final tsuhen = shichuEngine.calcTsuhenStar(natal.dayStemIdx, todayStemIdx);
 
-    final work = _workScore(natalElem, todayElem, tsuhen);
-    final money = _moneyScore(tsuhen, todayElem);
+    final work = FortuneScorer.workScore(natalElem, todayElem, tsuhen);
+    final money = FortuneScorer.moneyScore(tsuhen, todayElem);
     final loveRef = natal.venusSign ?? natal.moonSign;
-    final love = _loveScore(_zodiacElem(loveRef), _zodiacElem(todayHoroscope.moonSign));
-    final health = _healthScore(natal.shichu, todayElem);
+    final love = FortuneScorer.loveScore(_zodiacElem(loveRef), _zodiacElem(todayHoroscope.moonSign));
+    final health = FortuneScorer.healthScore(natal.shichu, todayElem);
     final overall = ((work + money + love + health) / 4).round();
 
     final scores = {'work': work, 'money': money, 'love': love, 'health': health};
     final minKey = scores.entries.reduce((a, b) => a.value <= b.value ? a : b).key;
 
     return FortuneResult(
-      overall: _toStars(overall),
-      work: _toStars(work),
-      money: _toStars(money),
-      love: _toStars(love),
-      health: _toStars(health),
+      overall: FortuneScorer.toStars(overall),
+      work: FortuneScorer.toStars(work),
+      money: FortuneScorer.toStars(money),
+      love: FortuneScorer.toStars(love),
+      health: FortuneScorer.toStars(health),
       luckyColor: _wuXingColors[todayElem],
       luckyNumber: ((nichibanCenter + date.day - 1) % 9) + 1,
       luckyDirection: kyuseiEngine.calcLuckyDirection(
@@ -253,67 +245,6 @@ class FortuneRepositoryImpl implements FortuneRepository {
           natal.kyusei.honmeisei.number, nichibanCenter),
       advice: '',
     );
-  }
-
-  // ---------- スコア算出 ----------
-
-  // 仕事運: 日主 vs 今日の日干の五行関係 + 通変星ボーナス
-  static int _workScore(int natalElem, int todayElem, TsuhenStar tsuhen) {
-    // diff=(todayElem-natalElem+5)%5
-    // 0=同, 1=natal→today生, 2=natal克today, 3=today克natal, 4=today→natal生
-    const bases = [65, 50, 72, 30, 80];
-    final diff = (todayElem - natalElem + 5) % 5;
-    const bonuses = {
-      TsuhenStar.seikan: 18, TsuhenStar.henkan: 15,
-      TsuhenStar.shokushin: 13, TsuhenStar.shokan: 10,
-      TsuhenStar.hiken: 8, TsuhenStar.kokuzai: 5,
-      TsuhenStar.henzai: 6, TsuhenStar.seizai: 6,
-      TsuhenStar.henin: 6, TsuhenStar.insho: 8,
-    };
-    return (bases[diff] + (bonuses[tsuhen] ?? 5)).clamp(0, 100);
-  }
-
-  // 金運: 財星関係 + 土気ボーナス
-  static int _moneyScore(TsuhenStar tsuhen, int todayElem) {
-    const scores = {
-      TsuhenStar.henzai: 85, TsuhenStar.seizai: 78,
-      TsuhenStar.shokushin: 65, TsuhenStar.shokan: 55,
-      TsuhenStar.seikan: 52, TsuhenStar.hiken: 42,
-      TsuhenStar.henin: 38, TsuhenStar.insho: 35,
-      TsuhenStar.henkan: 40, TsuhenStar.kokuzai: 28,
-    };
-    return ((scores[tsuhen] ?? 40) + (todayElem == 2 ? 8 : 0)).clamp(0, 100);
-  }
-
-  // 恋愛運: 西洋元素の相性
-  // zodiacElem: 0=火, 1=地, 2=風, 3=水
-  static int _loveScore(int natalElem, int todayElem) {
-    if (natalElem == todayElem) return 80;
-    final a = natalElem, b = todayElem;
-    if ((a == 0 && b == 2) || (a == 2 && b == 0)) return 68; // 火-風 トライン
-    if ((a == 1 && b == 3) || (a == 3 && b == 1)) return 72; // 地-水 トライン
-    if ((a == 0 && b == 3) || (a == 3 && b == 0)) return 28; // 火-水 オポジション
-    if ((a == 1 && b == 2) || (a == 2 && b == 1)) return 32; // 地-風 オポジション
-    return 48; // 隣接 (火-地, 風-水)
-  }
-
-  // 健康運: 命式五行バランスと今日の五行
-  static int _healthScore(ShichuMeishiki natal, int todayElem) {
-    final counts = <int, int>{0: 0, 1: 0, 2: 0, 3: 0, 4: 0};
-    for (final pillar in [
-      natal.nenchu, natal.gecchu, natal.nicchu,
-      if (natal.jichu != null) natal.jichu!,
-    ]) {
-      final idx = _stemIdx(pillar.stem);
-      if (idx >= 0) counts[idx ~/ 2] = counts[idx ~/ 2]! + 1;
-    }
-    final minC = counts.values.reduce(math.min);
-    final maxC = counts.values.reduce(math.max);
-    final deficient = counts.entries.firstWhere((e) => e.value == minC).key;
-    final dominant = counts.entries.firstWhere((e) => e.value == maxC).key;
-    if (todayElem == deficient) return 85;
-    if (todayElem == dominant) return 30;
-    return 55;
   }
 
   // ---------- ヘルパー ----------
