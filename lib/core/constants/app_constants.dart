@@ -6,4 +6,5 @@ abstract final class AppConstants {
   static const int hourBranchHours = 2;
   static const int maxFortuneScore = 5;
   static const int minFortuneScore = 1;
+  static const double aspectOrb = 6.0;
 }
