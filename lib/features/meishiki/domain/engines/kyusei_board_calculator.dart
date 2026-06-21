@@ -55,6 +55,9 @@ class KyuseiBoardCalculator {
     return null;
   }
 
+  int kyuseiYearOf(DateTime date) => _kyuseiYear(date);
+  int setsuMonthOf(DateTime date) => _setsuMonth(date, _kyuseiYear(date));
+
   int _yearCenter(DateTime date) => _calcHonmei(_kyuseiYear(date));
 
   int _monthCenter(DateTime date) {
