@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../shared/database/app_database.dart';
+import '../../../../shared/providers/database_provider.dart';
 import '../../../meishiki/domain/engines/kyusei_engine.dart';
 import '../../../meishiki/domain/engines/seiza_engine.dart';
 import '../../../meishiki/domain/engines/shichu_engine.dart';
@@ -16,9 +16,6 @@ import '../../domain/usecases/generate_monthly_fortune_usecase.dart';
 import '../../domain/usecases/generate_yearly_fortune_usecase.dart';
 
 part 'fortune_provider.g.dart';
-
-@Riverpod(keepAlive: true)
-AppDatabase appDatabase(Ref ref) => AppDatabase();
 
 @riverpod
 SetsuiriData setsuiriData(Ref ref) => SetsuiriData();
