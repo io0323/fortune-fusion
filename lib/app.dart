@@ -7,6 +7,7 @@ import 'features/direction/presentation/pages/direction_page.dart';
 import 'features/fortune/presentation/pages/daily_fortune_page.dart';
 import 'features/fortune/presentation/pages/fortune_home_page.dart';
 import 'features/fortune/presentation/pages/monthly_fortune_page.dart';
+import 'features/fortune/presentation/pages/integrated_reading_page.dart';
 import 'features/fortune/presentation/pages/yearly_fortune_page.dart';
 import 'features/meishiki/presentation/pages/meishiki_page.dart';
 import 'features/profile/presentation/pages/profile_page.dart';
@@ -44,6 +45,7 @@ final _router = GoRouter(
     GoRoute(path: '/daily', builder: (_, __) => const DailyFortunePage()),
     GoRoute(path: '/monthly', builder: (_, __) => const MonthlyFortunePage()),
     GoRoute(path: '/yearly', builder: (_, __) => const YearlyFortunePage()),
+    GoRoute(path: '/reading', builder: (_, __) => const IntegratedReadingPage()),
   ],
 );
 
